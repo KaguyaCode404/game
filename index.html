@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEON HORIZON // VOID PROTOCOL - Official Game Site & Playable Demo</title>
+  
+  <!-- Modern Google Fonts: Orbitron for Sci-Fi headlines & Inter for crisp readability -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Game Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient Sci-Fi Background Glow & Grid -->
+  <div class="ambient-glow glow-top-left"></div>
+  <div class="ambient-glow glow-bottom-right"></div>
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- ========================================================
+       TOP NAVIGATION BAR
+       ======================================================== -->
+  <header class="game-header">
+    <div class="header-container">
+      <a href="#hero" class="game-logo">
+        <div class="logo-emblem">
+          <i data-lucide="zap"></i>
+        </div>
+        <div class="logo-title-group">
+          <span class="logo-main">NEON<span class="highlight">HORIZON</span></span>
+          <span class="logo-sub">VOID PROTOCOL</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#lore">Lore</a>
+        <a href="#play-arena" class="nav-play-pill"><i data-lucide="play-circle"></i> Playable Demo</a>
+        <a href="#features">Features</a>
+        <a href="#controls">Flight Manual</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="status-badge"><span class="pulsing-dot"></span> V0.9.4 PROTOTYPE</span>
+        <a href="#play-arena" class="btn btn-primary-glow btn-sm">Launch Mission</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       HERO SECTION / CINEMATIC INTRO
+       ======================================================== -->
+  <section id="hero" class="hero-section">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <i data-lucide="shield-alert"></i>
+        <span>CLASSIFIED TRANSMISSION // SECTOR 07</span>
+      </div>
+      <h1 class="hero-headline">
+        DEFEND THE VOID.<br>
+        <span class="gradient-text">BREAK THE PROTOCOL.</span>
+      </h1>
+      <p class="hero-description">
+        Step into the cockpit of the <strong>Vanguard-IV Interceptor</strong>. Dodge hyper-dense asteroid fields, blast autonomous drone armadas, and harness glowing void energy in this high-intensity neon arcade space combat simulator.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#play-arena" class="btn btn-accent-neon btn-lg">
+          <i data-lucide="crosshair"></i> PLAY DEMO NOW
+        </a>
+        <a href="#lore" class="btn btn-outline btn-lg">
+          <i data-lucide="book-open"></i> EXPLORE LORE
+        </a>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="hero-specs-strip">
+        <div class="spec-card">
+          <span class="spec-value">60 FPS</span>
+          <span class="spec-label">Canvas Combat Engine</span>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-card">
+          <span class="spec-value">SYNTH AUDIO</span>
+          <span class="spec-label">Procedural Web Audio FX</span>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-card">
+          <span class="spec-value">ENDLESS WAVES</span>
+          <span class="spec-label">Adaptive Threat AI</span>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-card">
+          <span class="spec-value">ZERO INSTALL</span>
+          <span class="spec-label">Direct Browser Native</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       INTERACTIVE PLAYABLE GAME DEMO ARENA
+       ======================================================== -->
+  <section id="play-arena" class="game-arena-section">
+    <div class="section-badge">
+      <i data-lucide="gamepad-2"></i>
+      <span>INTERACTIVE FLIGHT SIMULATION</span>
+    </div>
+    <h2 class="section-title">Playable Tech Demo</h2>
+    <p class="section-subtitle">Real-time HTML5 Canvas physics, procedural asteroid spawns, particle explosions & synthesized laser sound effects.</p>
+
+    <!-- Arcade Frame Container -->
+    <div class="arcade-frame">
+      <!-- Cockpit Top HUD Bar -->
+      <div class="arcade-hud-bar">
+        <div class="hud-item hud-score">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value" id="hudScore">000000</span>
+        </div>
+
+        <div class="hud-item hud-multiplier">
+          <span class="hud-label">MULTIPLIER</span>
+          <span class="hud-value neon-cyan" id="hudMultiplier">1.0x</span>
+        </div>
+
+        <div class="hud-item hud-bars">
+          <div class="bar-container">
+            <span class="bar-label">HULL INTEGRITY</span>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-health" id="hudHealthBar" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div class="bar-container">
+            <span class="bar-label">SHIELD ENERGY (SHIFT)</span>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-shield" id="hudShieldBar" style="width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-item hud-highscore">
+          <span class="hud-label">SECTOR HIGH</span>
+          <span class="hud-value neon-gold" id="hudHighScore">000000</span>
+        </div>
+
+        <!-- Controls: Sound & Pause -->
+        <div class="hud-actions">
+          <button id="btnAudioToggle" class="hud-btn" title="Toggle Sound FX">
+            <i data-lucide="volume-2" id="audioIcon"></i>
+            <span id="audioLabel">AUDIO: ON</span>
+          </button>
+          <button id="btnPauseGame" class="hud-btn" title="Pause Game (P)">
+            <i data-lucide="pause" id="pauseIcon"></i>
+            <span id="pauseLabel">PAUSE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas Wrapper & Overlay Screens -->
+      <div class="canvas-viewport" id="canvasContainer">
+        <canvas id="gameCanvas" width="800" height="520"></canvas>
+
+        <!-- START OVERLAY -->
+        <div id="startOverlay" class="game-overlay active">
+          <div class="overlay-modal">
+            <div class="overlay-icon">
+              <i data-lucide="rocket"></i>
+            </div>
+            <h3 class="overlay-title">VANGUARD FLIGHT READY</h3>
+            <p class="overlay-text">Eliminate incoming drone invaders, shatter hazardous asteroids, and collect power-up void cores.</p>
+            <div class="overlay-keys-hint">
+              <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>ARROWS</kbd> Move</span>
+              <span><kbd>SPACE</kbd> Fire Blasters</span>
+              <span><kbd>SHIFT</kbd> Energy Shield</span>
+            </div>
+            <button id="btnStartGame" class="btn btn-accent-neon btn-lg pulse-btn">
+              <i data-lucide="play"></i> ENGAGE ENGINES (START)
+            </button>
+          </div>
+        </div>
+
+        <!-- PAUSE OVERLAY -->
+        <div id="pauseOverlay" class="game-overlay">
+          <div class="overlay-modal">
+            <i data-lucide="pause-circle" class="overlay-huge-icon"></i>
+            <h3 class="overlay-title">SYSTEMS SUSPENDED</h3>
+            <p class="overlay-text">Telemetry paused. Take a breath, pilot.</p>
+            <button id="btnResumeGame" class="btn btn-primary-glow btn-md">
+              <i data-lucide="play"></i> RESUME MISSION
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME OVER OVERLAY -->
+        <div id="gameOverOverlay" class="game-overlay">
+          <div class="overlay-modal danger-theme">
+            <div class="overlay-icon danger">
+              <i data-lucide="alert-triangle"></i>
+            </div>
+            <h3 class="overlay-title danger-text">HULL BREACH DETECTED</h3>
+            <div class="game-over-stats">
+              <div class="stat-row">
+                <span>Final Score:</span>
+                <span class="stat-highlight" id="finalScoreVal">0</span>
+              </div>
+              <div class="stat-row">
+                <span>Drones Destroyed:</span>
+                <span id="finalKillsVal">0</span>
+              </div>
+              <div class="stat-row">
+                <span>Best Record:</span>
+                <span class="stat-highlight gold" id="finalBestVal">0</span>
+              </div>
+            </div>
+            <button id="btnRestartGame" class="btn btn-accent-neon btn-lg">
+              <i data-lucide="rotate-ccw"></i> RE-DEPLOY FIGHTER
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Virtual Buttons for Mobile or Mouse Play -->
+      <div class="arcade-touch-bar">
+        <span class="touch-bar-label">MOUSE / TOUCH CONTROLS:</span>
+        <div class="touch-buttons-group">
+          <button id="touchLeft" class="touch-btn"><i data-lucide="arrow-left"></i> LEFT</button>
+          <button id="touchRight" class="touch-btn">RIGHT <i data-lucide="arrow-right"></i></button>
+          <button id="touchFire" class="touch-btn action-fire"><i data-lucide="flame"></i> FIRE BLASTER</button>
+          <button id="touchShield" class="touch-btn action-shield"><i data-lucide="shield"></i> SHIELD</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       GAME LORE & STORY SECTION
+       ======================================================== -->
+  <section id="lore" class="lore-section">
+    <div class="container">
+      <div class="section-badge">
+        <i data-lucide="terminal"></i>
+        <span>ARCHIVE LOGS // 2184 A.D.</span>
+      </div>
+      <h2 class="section-title">The Fall of Sector 7</h2>
+      <p class="section-subtitle">Deep within the Orion Nebula, automated mining relays lost contact with Earth command. What returned was something else.</p>
+
+      <div class="lore-grid">
+        <div class="lore-card">
+          <div class="lore-card-header">
+            <div class="lore-card-icon"><i data-lucide="cpu"></i></div>
+            <span class="lore-index">DATAFILE 01</span>
+          </div>
+          <h3>The Rogue Swarm</h3>
+          <p>
+            Automated defense networks initiated an unauthorized reconfiguration. Red-coded interceptor drones now patrol the asteroid fields, neutralizing any civilian or diplomatic vessels that breach perimeter coordinates.
+          </p>
+        </div>
+
+        <div class="lore-card highlight-border">
+          <div class="lore-card-header">
+            <div class="lore-card-icon accent"><i data-lucide="navigation"></i></div>
+            <span class="lore-index">DATAFILE 02</span>
+          </div>
+          <h3>Vanguard-IV Interceptor</h3>
+          <p>
+            Your ship is an agile, prototype void craft armed with twin focused plasma cannons and an experimental hard-light deflector barrier. Its agility allows it to weave through zero-G debris at relativistic speeds.
+          </p>
+        </div>
+
+        <div class="lore-card">
+          <div class="lore-card-header">
+            <div class="lore-card-icon gold"><i data-lucide="sparkles"></i></div>
+            <span class="lore-index">DATAFILE 03</span>
+          </div>
+          <h3>Void Cores & Overdrive</h3>
+          <p>
+            Defeated elite drones occasionally drop condensed Void Cores. Harvesting these unstable energy nodes grants temporary quad-plasma overdrive, instant hull nanite repairs, and invulnerability pulses.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       KEY FEATURES
+       ======================================================== -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-badge">
+        <i data-lucide="layers"></i>
+        <span>GAME ENGINE & MECHANICS</span>
+      </div>
+      <h2 class="section-title">Engine Features</h2>
+      <p class="section-subtitle">Engineered with modern vanilla web standards for 60fps performance and instantaneous loading.</p>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="activity"></i></div>
+          <h4>Real-time Particle Engine</h4>
+          <p>Over 100+ dynamic sparks, smoke trails, and kinetic shockwave rings render dynamically during each explosion.</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="volume-2"></i></div>
+          <h4>Procedural Web Audio</h4>
+          <p>Zero external MP3/WAV files required. Custom synthesizer oscillators synthesize laser blasts, explosions, and shield hums in real time.</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="zap"></i></div>
+          <h4>Power-Up System</h4>
+          <p>Collect glowing power-ups: <strong>Overdrive (Rapid Fire)</strong>, <strong>Nanite Repair (Health)</strong>, and <strong>Shield Cells</strong>.</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="target"></i></div>
+          <h4>Dynamic Threat Scaling</h4>
+          <p>Asteroid velocity, enemy swarm density, and drone maneuverability scale continuously as your score increases.</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="save"></i></div>
+          <h4>Sector High Score Memory</h4>
+          <p>Your record is saved persistently in your local browser storage so you can continually challenge your personal best.</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon"><i data-lucide="smartphone"></i></div>
+          <h4>Universal Input Compatibility</h4>
+          <p>Seamlessly supports Desktop keyboard navigation, mouse click actions, and on-screen tactile mobile touch triggers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CONTROLS & FLIGHT MANUAL
+       ======================================================== -->
+  <section id="controls" class="controls-section">
+    <div class="container">
+      <div class="section-badge">
+        <i data-lucide="compass"></i>
+        <span>TACTICAL BRIEFING</span>
+      </div>
+      <h2 class="section-title">Flight Manual & Controls</h2>
+
+      <div class="controls-card-wrapper">
+        <div class="controls-table">
+          <div class="control-row">
+            <div class="key-combo">
+              <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd>
+            </div>
+            <div class="key-desc">
+              <strong>Maneuver Thrusters:</strong> Move interceptor ship freely across 2D sector space.
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="key-combo">
+              <kbd>SPACEBAR</kbd>
+            </div>
+            <div class="key-desc">
+              <strong>Twin Plasma Blasters:</strong> Fire primary rapid-charge cannons. Hold down for auto-fire.
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="key-combo">
+              <kbd>SHIFT</kbd>
+            </div>
+            <div class="key-desc">
+              <strong>Deflector Shield:</strong> Deploy hard-light energy barrier. Absorbs incoming collision damage (consumes shield energy bar).
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="key-combo">
+              <kbd>P</kbd> or <kbd>ESC</kbd>
+            </div>
+            <div class="key-desc">
+              <strong>Emergency Suspension:</strong> Pause/Resume game simulation.
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="key-combo">
+              <kbd>M</kbd>
+            </div>
+            <div class="key-desc">
+              <strong>Audio Comms:</strong> Mute or Unmute synthesized sound FX.
+            </div>
+          </div>
+        </div>
+
+        <div class="powerup-legend">
+          <h4>Drop Pod Legend</h4>
+          <div class="legend-item">
+            <div class="legend-dot dot-cyan"></div>
+            <div>
+              <strong>Overdrive Pod:</strong> Triples fire rate and adds spread shot for 6 seconds.
+            </div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot dot-green"></div>
+            <div>
+              <strong>Nanite Repair:</strong> Instantly restores +35% Hull Integrity.
+            </div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot dot-purple"></div>
+            <div>
+              <strong>Shield Booster:</strong> Recharges 100% of your defensive shield energy.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer class="game-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="logo-main">NEON<span class="highlight">HORIZON</span></span>
+        <p>Built with vanilla HTML5, CSS3 & JavaScript. Zero external frameworks, zero build tools.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#hero">Top of Page</a>
+        <a href="#play-arena">Play Game</a>
+        <a href="#lore">Lore</a>
+        <a href="#controls">Controls</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Neon Horizon Project. All systems operational. Ready for deployment.</p>
+    </div>
+  </footer>
+
+  <!-- Game Logic Script -->
+  <script src="game.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+
